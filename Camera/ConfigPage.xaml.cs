@@ -43,10 +43,14 @@ namespace Camera
         {
             ListView lv = (ListView)sender;
             selectedIndex = lv.SelectedIndex;
-            App.selectedString=(string) lv.Items.ElementAt(selectedIndex);
-            App.selectedUserNamePassword = (string)App.userPasswd.ElementAt(selectedIndex);
-            address.Text= App.selectedString;
-            this.userPasswd.Text= App.selectedUserNamePassword;
+            if (selectedIndex > -1)
+            {
+                App.selectedString = (string)lv.Items.ElementAt(selectedIndex);
+                App.selectedUserNamePassword = (string)App.userPasswd.ElementAt(selectedIndex);
+                address.Text = App.selectedString;
+                this.userPasswd.Text = App.selectedUserNamePassword;
+                lv.SelectedItem = lv.Items.ElementAt(selectedIndex);
+            }
         }
 
         private void AppBar_Click(object sender, RoutedEventArgs e)
@@ -56,10 +60,11 @@ namespace Camera
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            ListView lv = (ListView)sender;
-            selectedIndex = lv.SelectedIndex;
-            App.selectedString.Remove(selectedIndex);
-            App.selectedUserNamePassword.Remove(selectedIndex);
+            if (selectedIndex < 0)
+                return;
+            int cp = selectedIndex;
+            App.addressListS.RemoveAt(selectedIndex);
+            App.userPasswd.RemoveAt(cp);
 
         }
     }
