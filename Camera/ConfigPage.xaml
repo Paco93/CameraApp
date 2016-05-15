@@ -18,7 +18,7 @@
         <TextBox Name="userPasswd"  Grid.Row="1" TextWrapping="Wrap"  Text="UserName:Password"/>
         <Button Content="Add"  Grid.Row="2" HorizontalAlignment="Center" Click="OnAdd" />
         <ScrollViewer Grid.Row="3">
-            <ListView  SelectionChanged="SelectionChanged" Name="lView"  Background="Red"  ItemsSource="{Binding Source=App.addressListS }"
+            <ListView  SelectionChanged="SelectionChanged" Name="lView"    ItemsSource="{Binding Source=App.addressListS }"
 ></ListView>
         </ScrollViewer>
     </Grid>
