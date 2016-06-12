@@ -213,7 +213,7 @@ namespace Camera
             httpVersion = HttpVersion.Http20;
             filter.MaxVersion = httpVersion;
 
-            var byteArray = Encoding.ASCII.GetBytes(App.selectedUserNamePassword);
+            var byteArray = Encoding.ASCII.GetBytes(Application.selectedUserNamePassword);
             httpClient.DefaultRequestHeaders.Authorization = new Windows.Web.Http.Headers.HttpCredentialsHeaderValue("Basic", Convert.ToBase64String(byteArray));
 
         }
@@ -289,7 +289,7 @@ namespace Camera
 
             // The value of 'AddressField' is set by the user and is therefore untrusted input. If we can't create a
             // valid, absolute URI, we'll notify the user about the incorrect input.
-            if (!Helpers.TryGetUri(App.selectedString, out resourceUri))
+            if (!Helpers.TryGetUri(Application.selectedString, out resourceUri))
             {
                 rootPage.NotifyUser("Invalid URI.", NotifyType.ErrorMessage);
                 return;

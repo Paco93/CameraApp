@@ -13,19 +13,23 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="10*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <TextBox Name="address"  Grid.Row="0" TextWrapping="Wrap"  Text="Address"/>
         <TextBox Name="userPasswd"  Grid.Row="1" TextWrapping="Wrap"  Text="UserName:Password"/>
         <Button Content="Add"  Grid.Row="2" HorizontalAlignment="Center" Click="OnAdd" />
         <ScrollViewer Grid.Row="3">
-            <ListView  SelectionChanged="SelectionChanged" Name="lView"    ItemsSource="{Binding Source=App.addressListS }"
-></ListView>
+            <ListView  SelectionChanged="SelectionChanged" Name="lView"    ItemsSource="{Binding Source=App.addressListS }"></ListView>
+        </ScrollViewer>
+        <ScrollViewer Grid.Row="4" Margin="10,15,10,10" VerticalScrollBarVisibility="Auto">
+            <TextBlock Name="StatusMessage" TextWrapping="Wrap" Text="{Binding StatusMessage}" FontSize="16"/>
         </ScrollViewer>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar Name="bottomAppBar" >
             <AppBarButton  Icon="Back" Label="Go Home"  Width="Auto" Margin="50,0,50,0"  Click="AppBar_Click" ToolTipService.ToolTip="Go to Main Page"/>
-            <AppBarButton  Icon="Delete" Label="Delete"  Width="Auto" Margin="50,0,50,0"  Click="Delete_Click" ToolTipService.ToolTip="Delete selected item"/>
+            <AppBarButton  Icon="Delete" Label="Delete"  Width="Auto" Margin="0,0,50,0"  Click="Delete_Click" ToolTipService.ToolTip="Delete selected item"/>
+            <AppBarButton  Icon="View" Label="Light/Dark Switch"  Width="Auto" Margin="0,0,50,0"  Click="Theme_Click" ToolTipService.ToolTip="Change Theme"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

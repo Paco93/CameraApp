@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -17,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Camera
 {
+  
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -30,13 +32,13 @@ namespace Camera
 
         private  void OnAdd(object sender, RoutedEventArgs e)
         {
-            App.addressListS.Add(address.Text);
-            App.userPasswd.Add(this.userPasswd.Text);
+            Application.addressListS.Add(address.Text);
+            Application.userPasswd.Add(this.userPasswd.Text);
         }
 
         protected override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            lView.ItemsSource = App.addressListS;
+            lView.ItemsSource = Application.addressListS;
         }
 
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,10 +47,10 @@ namespace Camera
             selectedIndex = lv.SelectedIndex;
             if (selectedIndex > -1)
             {
-                App.selectedString = (string)lv.Items.ElementAt(selectedIndex);
-                App.selectedUserNamePassword = (string)App.userPasswd.ElementAt(selectedIndex);
-                address.Text = App.selectedString;
-                this.userPasswd.Text = App.selectedUserNamePassword;
+                Application.selectedString = (string)lv.Items.ElementAt(selectedIndex);
+                Application.selectedUserNamePassword = (string)Application.userPasswd.ElementAt(selectedIndex);
+                address.Text = Application.selectedString;
+                this.userPasswd.Text = Application.selectedUserNamePassword;
                 lv.SelectedItem = lv.Items.ElementAt(selectedIndex);
             }
         }
@@ -63,9 +65,18 @@ namespace Camera
             if (selectedIndex < 0)
                 return;
             int cp = selectedIndex;
-            App.addressListS.RemoveAt(selectedIndex);
-            App.userPasswd.RemoveAt(cp);
+            Application.addressListS.RemoveAt(selectedIndex);
+            Application.userPasswd.RemoveAt(cp);
 
+        }
+
+        private void Theme_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.RequestedTheme== ApplicationTheme.Dark)
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["Tema"] = "Light";
+            else
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values["Tema"] = "Dark";
+            StatusMessage.Text = "App should be restarted in order that change is applied";
         }
     }
 }

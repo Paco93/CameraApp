@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -24,19 +25,33 @@ namespace Camera
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    sealed partial class Application : Windows.UI.Xaml.Application
     {
         internal static string selectedString;
         internal static string selectedUserNamePassword;
         internal static ObservableCollection<string> addressListS { get; private set; }
         internal static ObservableCollection<string> userPasswd;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        public App()
+        public Application()
         {
             this.InitializeComponent();
+
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            object value = Convert.ToString(localSettings.Values["Tema"]);
+            if (value == null || value.ToString() == "")
+            {
+                Application.Current.RequestedTheme = ApplicationTheme.Dark;
+            }
+            else
+            {
+                string s = Convert.ToString(value);
+                if (s.ToLower().Contains("light"))
+                    Application.Current.RequestedTheme = ApplicationTheme.Light;
+            }
             this.Suspending += OnSuspending;
             addressListS = new ObservableCollection<string>();
             userPasswd = new ObservableCollection<string>();
